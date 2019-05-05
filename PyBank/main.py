@@ -14,7 +14,9 @@ with open(budget_data_csv, 'r') as csvfile:
 
     number_of_months = 0    
     total_LP = 0
-    rows = []
+    #rows = []
+    max_increase = 0
+    max_decrease = 0
     # Loop through the data
     for row in csvreader:
         #The total number of months included in the dataset
@@ -22,11 +24,14 @@ with open(budget_data_csv, 'r') as csvfile:
         #The net total amount of "Profit/Losses" over the entire period
         total_LP += int(row[1])
         #The greatest increase in profits (date and amount) over the entire period
-        rows.append(int(row[1]))
-        
+        #rows.append(int(row[1]))
+        if int(row[1]) > int(max_increase): 
+            max_increase = row[1]
+            greatest_increase = str(row[0]) + ' ' + '($' + str(row[1]) + ')'
         #The greatest decrease in losses (date and amount) over the entire period
-    
-
+        if int(row[1]) < int(max_decrease):
+            max_decrease = row[1]
+            greatest_decrease = str(row[0]) + ' ' + '($' + str(row[1]) + ')'
     print()
     print()
     print("Financial Analysis")
@@ -36,6 +41,5 @@ with open(budget_data_csv, 'r') as csvfile:
     #The average of the changes in "Profit/Losses" over the entire period
     averave_LP = (total_LP / number_of_months)
     print("Average Change: $","{:.2f}".format(averave_LP), sep="")
-    
-     
-    
+    print(f'Greatest Increase in Profits: {greatest_increase}')
+    print(f'Greatest Decrease in Profits: {greatest_decrease}')
