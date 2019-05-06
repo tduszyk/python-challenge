@@ -1,6 +1,6 @@
 import os, csv
 
-# Path to collect data from the Resources folder
+# Path to collect data from the same folder
 budget_data_csv = os.path.join('budget_data.csv')
 
 # Read in the CSV file
@@ -24,7 +24,6 @@ with open(budget_data_csv, 'r') as csvfile:
         #The net total amount of "Profit/Losses" over the entire period
         total_LP += int(row[1])
         #The greatest increase in profits (date and amount) over the entire period
-        #rows.append(int(row[1]))
         if int(row[1]) > int(max_increase): 
             max_increase = row[1]
             greatest_increase = str(row[0]) + ' ' + '($' + str(row[1]) + ')'
