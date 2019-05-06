@@ -30,15 +30,29 @@ with open(election_data_csv, 'r') as csvfile:
         if str(row[2]) not in candidates:
             candidates.append(str(row[2]))
         
-        #The total number of votes each candidate won
-        if row[2] == "Khan":
-            cand1 += 1
-        if row[2] == "Correy":
-            cand2 += 1
-        if row[2] == "Li":
-            cand3 += 1
-        if row[2] == "O'Tooley":
-            cand4 +=1
+        #The total number of votes each candidate won 
+        #
+        # This is faster but I don't like hardcoded names in the candidates
+        #if row[2] == "Khan":
+        #    cand1 += 1
+        #if row[2] == "Correy":
+        #    cand2 += 1
+        #if row[2] == "Li":
+        #    cand3 += 1
+        #if row[2] == "O'Tooley":
+        #    cand4 +=1
+        #
+        # This makes program execute slower but it gives extra flexibility
+        #
+        for name in candidates:
+            if str(row[2]) == str(candidates[0]):
+                cand1 += 1
+            elif str(row[2]) == str(candidates[1]):
+                cand2 += 1
+            elif row[2] == candidates[2]:
+                cand3 += 1
+            elif row[2] == candidates[3]:
+                cand4 +=1
         
         #The percentage of votes each candidate won
         cand1_perc = (cand1 / vote_number) * 100
@@ -48,7 +62,8 @@ with open(election_data_csv, 'r') as csvfile:
 
     #The winner of the election based on popular vote.
     if cand4 > cand3:
-        winner = "O'Tooley"
+        #winner = "O'Tooley"
+        winned = candidates[0]
     elif cand3 > cand2:
         winner = "Li"
     elif cand2 > cand1:
