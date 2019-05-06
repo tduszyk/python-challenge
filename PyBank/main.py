@@ -12,11 +12,12 @@ with open(budget_data_csv, 'r') as csvfile:
     # Remove header
     csv_header = next(csvreader)
 
+    #Setting addtional variables
     number_of_months = 0    
     total_LP = 0
-    #rows = []
     max_increase = 0
     max_decrease = 0
+    
     # Loop through the data
     for row in csvreader:
         #The total number of months included in the dataset
