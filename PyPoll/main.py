@@ -63,13 +63,13 @@ with open(election_data_csv, 'r') as csvfile:
     #The winner of the election based on popular vote.
     if cand4 > cand3:
         #winner = "O'Tooley"
-        winned = candidates[0]
+        winner = candidates[0]
     elif cand3 > cand2:
-        winner = "Li"
+        winner = candidates[1]
     elif cand2 > cand1:
-        winner = "Correy"
+        winner = candidates[2]
     else:
-        winner = "Khan"
+        winner = candidates[3]
 
     print()
     print("Election Results")
