@@ -21,6 +21,8 @@ with open(budget_data_csv, 'r') as csvfile:
     diffs = []
     average_diff = []
     i = 0
+    max_inc = 0
+    max_dec = 0
 
     # Loop through the datai
     for row in csvreader:
@@ -38,35 +40,43 @@ with open(budget_data_csv, 'r') as csvfile:
         else:
             diff = ((values[i]) - values[i - 1])
             diffs.append(diff)
-    
-    #print(dates)
-    #print(values)
-    #print(diffs)
 
+    # Creating new CSV file to get requested values
     new_list = zip(dates, diffs)
-    # save the output file path
     output_file = os.path.join("output.csv")
-
-    # open the output file, create a header row, and then write the zipped object to the csv
     with open(output_file, "w", newline="") as datafile:
         writer = csv.writer(datafile)
-
-        #writer.writerow(["Date", "Difference"])
-
         writer.writerows(new_list)
 
-
     #Finding largest increase and decrease
-    
+    new_list_csv = os.path.join('output.csv')
+    # Read in the CSV file
+    with open(new_list_csv, 'r') as csvlist:
+
+        # Split the data on commas
+        csvreader2 = csv.reader(csvlist, delimiter=',')
+
+        for list_row in csvreader2:
+            if int(list_row[1]) > int(max_inc):
+                max_inc = list_row[1]
+                max_inc_date = list_row[0]
+            elif int(list_row[1]) < int(max_dec):
+                max_dec = list_row[1]
+                max_dec_date = list_row[0]
+
     #The average of the changes in "Profit/Losses" over the entire period   
+    average_LP = sum(diffs) / (len(diffs) -1)
     
+    #Formating output
     print()
     print()
     print("Financial Analysis")
     print("---------------------------------------------")
     print("Total Months: ",number_of_months, sep="")
     print("Total: $",total_LP, sep="")
-    
-    #print("Average Change: $","{:.2f}".format(average_LP), sep="")
-    #print(f'Greatest Increase in Profits: {greatest_increase}')
-    #print(f'Greatest Decrease in Profits: {greatest_decrease}')
+    print("Average Change: $","{:.2f}".format(average_LP), sep="")
+    print("Greatest Increase in Profits: ",max_inc_date, " ($",max_inc,")", sep="")
+    print("Greatest Decrease in Profits: ",max_dec_date, " ($",max_dec,")", sep="")
+    print()
+    print()
+   
